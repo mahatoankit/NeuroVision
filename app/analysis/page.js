@@ -68,16 +68,8 @@ function App() {
 
     return (
         <div className="min-h-screen bg-[#101010] text-white">
-            <div
-                className="min-h-[60vh] bg-center flex items-center justify-center relative overflow-hidden"
-                style={{
-                    backgroundImage: "url('/img/2.webp')",
-                    backgroundBlendMode: 'overlay',
-                    backgroundSize: 'cover',
-                }}
-            >
+            <div className="min-h-[60vh] bg-center flex items-center justify-center relative overflow-hidden" style={{ backgroundImage: "url('/img/2.webp')", backgroundBlendMode: 'overlay', backgroundSize: 'cover', }}>
                 <div className="absolute inset-0 bg-black opacity-90"></div>
-
                 <div className="relative z-10 bg-[#303030] shadow-2xl rounded-lg p-8 max-w-2xl w-full">
                     <div className="text-center">
                         <p className="text-white text-lg mb-4">
@@ -86,85 +78,46 @@ function App() {
                     </div>
 
                     <form onSubmit={handleFileUpload} className="space-y-6">
-                        {/* File Input with Icon and Preview */}
                         <div className="text-center">
-                            <label
-                                htmlFor="fileInput"
-                                className="inline-block bg-[#303030] p-6 cursor-pointer rounded-full"
-                                title="Select new image."
-                            >
-                                {!imagePreview ? (
-                                    <FaPlus color="#f99601" size={40} />
-                                ) : (
-                                    <div className="mt-4 text-center">
-                                        <img
-                                            src={imagePreview}
-                                            className="mx-auto max-w-[120px] max-h-[120px] rounded-lg shadow-lg"
-                                            alt="Preview"
-                                        />
-                                    </div>
-                                )}
+                            <label htmlFor="fileInput" className="inline-block bg-[#303030] p-6 cursor-pointer rounded-full" title="Select new image.">
+                                {!imagePreview ? <FaPlus color="#f99601" size={40} /> : <div className="mt-4 text-center">
+                                    <img src={imagePreview} className="mx-auto max-w-[120px] max-h-[120px] rounded-lg shadow-lg" alt="Preview" />
+                                </div>}
                             </label>
-                            <input
-                                type="file"
-                                id="fileInput"
-                                accept="image/*"
-                                className="hidden"
-                                onChange={handleFileChange}
-                            />
+                            <input type="file" id="fileInput" accept="image/*" className="hidden" onChange={handleFileChange} />
                             <p className="text-xs italic text-gray-400">{fileName}</p>
                         </div>
 
-                        {/* Submit Button */}
-                        <button
-                            type="submit"
-                            className="w-full bg-[#f99601] text-[#353434] font-semibold py-3 px-4 rounded-lg shadow-lg transition-all duration-300 hover:scale-105"
-                        >
+                        <button type="submit" className="w-full bg-[#f99601] text-[#353434] font-semibold py-3 px-4 rounded-lg shadow-lg transition-all duration-300 hover:scale-105">
                             Analyze Image
                         </button>
                     </form>
 
-                    {/* Message Display */}
-                    {message && (
-                        <div
-                            className={`mt-6 text-white text-center font-medium py-3 rounded-lg ${messageType === 'success' ? 'bg-green-500' : 'bg-red-500'
-                                }`}
-                        >
-                            {message}
-                        </div>
-                    )}
+                    {message && <div className={`mt-6 text-white text-center font-medium py-3 rounded-lg ${messageType === 'success' ? 'bg-green-500' : 'bg-red-500'}`}>
+                        {message}
+                    </div>}
                 </div>
             </div>
 
             <div className="mt-8 bg-[#2d2d2d] text-white p-6 rounded-lg shadow-lg max-w-3xl mx-auto">
-                {/* Image Preview Section */}
                 <div className="text-center mb-6">
                     <h2 className="text-2xl font-bold mb-4">Uploaded MRI Image</h2>
                     <div className="relative inline-block">
-                        <img
-                            src={imagePreview}
-                            alt="Uploaded MRI"
-                            className="rounded-lg shadow-xl max-w-[300px] max-h-[300px] object-cover"
-                        />
-                        {/* Optionally, display a loading spinner while the image is being uploaded */}
+                        <img src={imagePreview} alt="Uploaded MRI" className="rounded-lg shadow-xl max-w-[300px] max-h-[300px] object-cover" />
                     </div>
                 </div>
 
-                {/* Prediction Result */}
                 <div className="mb-4">
                     <h3 className="text-xl font-semibold mb-2">Prediction Details</h3>
                     <div className="text-gray-300">
                         <p><strong>Tumor Type:</strong> {result?.tumorType || 'Unknown Tumor Type'}</p>
                         <p><strong>Confidence Level:</strong> {result?.confidenceLevel || 'N/A'}</p>
-                        {result?.tumorType === 'Malignant' ? (
-                            <p className="text-red-400 font-semibold mt-2">This is a malignant tumor. Immediate attention required!</p>
-                        ) : (
-                            <p className="text-green-400 font-semibold mt-2">This is a benign tumor. Regular monitoring is advised.</p>
-                        )}
+                        {result?.tumorType === 'Malignant' ?
+                            <p className="text-red-400 font-semibold mt-2">This is a malignant tumor. Immediate attention required!</p> :
+                            <p className="text-green-400 font-semibold mt-2">This is a benign tumor. Regular monitoring is advised.</p>}
                     </div>
                 </div>
 
-                {/* Suggested Actions */}
                 <div className="mb-4">
                     <h3 className="text-xl font-semibold mb-2">Suggested Actions</h3>
                     <ul className="list-disc list-inside text-gray-300 space-y-2">
@@ -177,7 +130,6 @@ function App() {
                     </ul>
                 </div>
 
-                {/* Further Resources */}
                 <div className="mt-4 text-center">
                     <button className="bg-[#f99601] text-[#353434] font-semibold py-2 px-6 rounded-lg hover:scale-105 transition-all">
                         View Detailed Report
