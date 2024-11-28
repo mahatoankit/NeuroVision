@@ -7,7 +7,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <title>NeuroVision - To make neuro be simply visible.</title>
-        <link rel="shortcut icon" href="/icon.png" type="image/x-icon" />
+        <link rel="shortcut icon" href="img/icon.png" type="image/x-icon" />
       </head>
       <body>
         <Navbar />

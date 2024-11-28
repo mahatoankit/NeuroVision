@@ -12,16 +12,16 @@ function Navbar() {
                 <div className="flex items-center justify-between h-24">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-3">
-                        <img src="/icon.png" className="w-[30px]" />
+                        <img src="/img/icon.png" className="w-[30px]" />
                         <span className="text-2xl tracking-wide">NeuroVision</span>
                     </Link>
 
                     {/* Desktop Menu */}
                     <div className="hidden md:flex space-x-6">
                         <Link href="/analysis" className="text-[var(--foreground)] font-medium">Analysis</Link>
-                        <Link href="/features" className="text-[var(--foreground)] font-medium">Features</Link>
-                        <Link href="/about" className="text-[var(--foreground)] font-medium"> About</Link>
-                        <Link href="/contact" className="text-[var(--foreground)] font-medium"> Contact</Link>
+                        <Link href="/#features" className="text-[var(--foreground)] font-medium">Features</Link>
+                        <Link href="/#application" className="text-[var(--foreground)] font-medium">Application</Link>
+                        <Link href="/#contact" className="text-[var(--foreground)] font-medium">Contact</Link>
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -37,9 +37,9 @@ function Navbar() {
                 <div className="md:hidden bg-blue-700">
                     <Link href="/" className="block px-4 py-2 text-sm hover:bg-blue-600 transition">Home</Link>
                     <Link href="/analysis" className="block px-4 py-2 text-sm hover:bg-blue-600 transition">Analysis</Link>
-                    <Link href="/features" className="block px-4 py-2 text-sm hover:bg-blue-600 transition">Features</Link>
-                    <Link href="/about" className="block px-4 py-2 text-sm hover:bg-blue-600 transition">About</Link>
-                    <Link href="/contact" className="block px-4 py-2 text-sm hover:bg-blue-600 transition">Contact</Link>
+                    <Link href="/#features" className="block px-4 py-2 text-sm hover:bg-blue-600 transition">Features</Link>
+                    <Link href="/#application" className="block px-4 py-2 text-sm hover:bg-blue-600 transition">Application</Link>
+                    <Link href="/#contact" className="block px-4 py-2 text-sm hover:bg-blue-600 transition">Contact</Link>
                 </div>
             )}
         </nav>

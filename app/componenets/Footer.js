@@ -9,7 +9,7 @@ function Footer() {
                 <div className="flex justify-center">
                     <div className="max-w-[370px]">
                         <div className="flex gap-2 justify-center items-center mb-4">
-                            <img src="/icon.png" className="w-[30px]" />
+                            <img src="/img/icon.png" className="w-[30px]" />
                             <h2 className="text-2xl font-bold">NeuroVision</h2>
                         </div>
                         <p className="text-sm">

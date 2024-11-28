@@ -71,12 +71,12 @@ function App() {
             <div
                 className="min-h-[60vh] bg-center flex items-center justify-center relative overflow-hidden"
                 style={{
-                    backgroundImage: "url('/sample/2.jpg')",
+                    backgroundImage: "url('/img/2.webp')",
                     backgroundBlendMode: 'overlay',
                     backgroundSize: 'cover',
                 }}
             >
-                <div className="absolute inset-0 bg-black opacity-70"></div>
+                <div className="absolute inset-0 bg-black opacity-90"></div>
 
                 <div className="relative z-10 bg-[#303030] shadow-2xl rounded-lg p-8 max-w-2xl w-full">
                     <div className="text-center">
