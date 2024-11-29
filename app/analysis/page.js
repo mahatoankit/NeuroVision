@@ -2,10 +2,9 @@
 
 import React, { useState } from 'react';
 import { appSlug } from '../common/common';
-import { FaLock, FaPlus, FaUpload } from 'react-icons/fa6';
-import { FaImage, FaCheckCircle, FaExclamationTriangle } from 'react-icons/fa6'; // Icons for prediction status
-import ContactMe from '../componenets/ContactMe';
+import { FaLock, FaPlus } from 'react-icons/fa6';
 import Link from 'next/link';
+import Application from '../componenets/Application';
 
 function App() {
     const [message, setMessage] = useState('');
@@ -119,7 +118,7 @@ function App() {
                 </div>
             </div>
 
-            {result && <div className='mt-8 rounded-lg p-6'>
+            {result ? <div className='mt-8 rounded-lg p-6'>
                 <div className="flex gap-3 mx-auto items-center justify-center max-w-[1100px]">
                     <div className="">
                         <img src={imagePreview} className='h-[300px] w-auto border border-[#303030]' />
@@ -178,9 +177,29 @@ function App() {
                         </div>
                     </div>
                 </> : <>
-                    jbknjkj
+                    <Application />
                 </>}
-            </div>}
+            </div> : <>
+                <Application />
+                <div className="bg-[#101010] py-12 px-6">
+                    <h2 className="text-center text-3xl font-bold mb-2" id='contact'>Ready to Transform Diagnostics?</h2>
+                    <p className="text-center text-gray-300 mb-6">
+                        Join countless medical professionals leveraging AI for precise and efficient brain tumor diagnosis.
+                    </p>
+                    <div className="flex justify-center gap-4">
+                        <Link href="/analysis" className="text-[#353434] font-medium">
+                            <div className="rounded-md cursor-pointer p-4 bg-[#f99601] shadow-lg hover:scale-105 transition-transform">
+                                Contact Us
+                            </div>
+                        </Link>
+                        <Link href="/contact" className="text-[#f99601] font-medium">
+                            <div className="rounded-md cursor-pointer p-4 border border-[#494848] shadow-lg hover:scale-105 transition-transform">
+                                Buy Now
+                            </div>
+                        </Link>
+                    </div>
+                </div>
+            </>}
         </div>
     );
 }

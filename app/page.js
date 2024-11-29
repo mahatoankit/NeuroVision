@@ -112,10 +112,10 @@ export default function Page() {
       <div className="bg-[#050505] py-12 px-6">
         <h2 className="text-center text-3xl font-bold mb-8">Model Performances</h2>
         <div className="flex flex-wrap max-w-[1300px] mx-auto justify-evenly gap-6">
-          {Object.keys(prediction).map((_tu) => {
+          {Object.keys(prediction).map((_tu, index) => {
             _tu = prediction[_tu]
 
-            return <div className="bg-[#1c1c1c] max-w-[600px] flex items-center w- gap-2 p-4 rounded-lg shadow-md hover:scale-105 transition-transform">
+            return <div key={index} className="bg-[#1c1c1c] max-w-[600px] flex items-center w- gap-2 p-4 rounded-lg shadow-md hover:scale-105 transition-transform">
               <div className="flex flex-col items-center gap-2">
                 <img src={_tu.img} className='object-cover max-w-[200px]' />
               </div>
