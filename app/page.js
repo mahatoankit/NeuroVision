@@ -1,5 +1,8 @@
 import Link from 'next/link';
 import React from 'react';
+import ContactMe from './componenets/ContactMe';
+import Application from './componenets/Application';
+import Features from './componenets/Features';
 
 export default function Page() {
   const tumors = {
@@ -84,41 +87,7 @@ export default function Page() {
         </div>
       </div>
 
-      <div className="bg-[#101010] py-16 px-6 ">
-        <h2 className="text-center text-4xl font-bold mb-10" id="features">Why NeuroVision?</h2>
-        <div className="flex flex-wrap justify-center gap-8">
-
-          <div className="bg-[#1c1c1c] p-6 rounded-lg shadow-lg w-[500px] hover:scale-105 transition-transform">
-            <h3 className="text-2xl font-semibold text-[#f99601] mb-3">Advanced Technology</h3>
-            <ul className="list-disc list-inside space-y-2 text-gray-300">
-              <li>AI-powered algorithms for precise imaging and diagnosis.</li>
-              <li>Significant reduction in diagnostic time, enhancing efficiency.</li>
-              <li>Robust performance with minimal human intervention.</li>
-              <li>Optimized for scalability in diverse clinical environments.</li>
-            </ul>
-          </div>
-
-          <div className="bg-[#1c1c1c] p-6 rounded-lg shadow-lg w-[500px] hover:scale-105 transition-transform">
-            <h3 className="text-2xl text-[#f99601] font-semibold mb-3">Expert Insights</h3>
-            <ul className="list-disc list-inside space-y-2 text-gray-300">
-              <li>Designed with feedback from top neurologists and radiologists.</li>
-              <li>Integrates domain knowledge for enhanced interpretation accuracy.</li>
-              <li>Continuously updated with cutting-edge medical research.</li>
-            </ul>
-          </div>
-
-          <div className="bg-[#1c1c1c] p-6 rounded-lg shadow-lg w-[500px] hover:scale-105 transition-transform">
-            <h3 className="text-2xl text-[#f99601] font-semibold mb-3">Better Outcomes</h3>
-            <ul className="list-disc list-inside space-y-2 text-gray-300">
-              <li>Improved diagnostic accuracy leads to better patient care.</li>
-              <li>Empowers physicians to devise targeted treatment strategies.</li>
-              <li>Reduces errors, ensuring reliable and consistent results.</li>
-              <li>Enhances patient confidence with transparent, data-driven insights.</li>
-            </ul>
-          </div>
-
-        </div>
-      </div>
+      <Features />
 
       <div className="bg-[#101010] py-12 px-6">
         <h2 className="text-center text-3xl font-bold">What Model Does?</h2>
@@ -161,71 +130,9 @@ export default function Page() {
         </div>
       </div>
 
-      <div className="bg-[#101010] py-12 px-6">
-        <h2 className="text-center text-3xl font-bold mb-8" id="application">Applications of NeuroVision</h2>
-        <div className="flex flex-wrap max-w-[1300px] mx-auto gap-10 justify-center">
-          <div className="flex bg-[#1c1c1c] rounded-lg shadow-lg overflow-hidden hover:scale-105 transition-transform max-w-[600px]">
-            <div className="p-6">
-              <h3 className="text-2xl font-semibold text-[#f99601] mb-3">Early Diagnosis</h3>
-              <p className="text-gray-300">
-                Early detection of brain tumors is critical for successful treatment.
-                NeuroVision provides rapid and accurate diagnosis, enabling doctors to act promptly.
-              </p>
-            </div>
-          </div>
+      <Application />
 
-          <div className="flex bg-[#1c1c1c] rounded-lg shadow-lg overflow-hidden hover:scale-105 transition-transform max-w-[600px]">
-            <div className="p-6">
-              <h3 className="text-2xl font-semibold text-[#f99601] mb-3">Second Opinion</h3>
-              <p className="text-gray-300">
-                NeuroVision serves as a trusted second opinion for medical professionals,
-                reducing diagnostic errors and ensuring confidence in treatment strategies.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex bg-[#1c1c1c] rounded-lg shadow-lg overflow-hidden hover:scale-105 transition-transform max-w-[600px]">
-            <div className="p-6">
-              <h3 className="text-2xl font-semibold text-[#f99601] mb-3">Research and Development</h3>
-              <p className="text-gray-300">
-                Ideal for researchers, NeuroVision assists in clinical trials and the
-                development of innovative protocols in neuro-oncology and AI-based diagnostics.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex bg-[#1c1c1c] rounded-lg shadow-lg overflow-hidden hover:scale-105 transition-transform max-w-[600px]">
-            <div className="p-6">
-              <h3 className="text-2xl font-semibold text-[#f99601] mb-3">Education and Training</h3>
-              <p className="text-gray-300">
-                Medical schools and institutions can use NeuroVision as a teaching tool, helping
-                students and professionals learn about neuroimaging and tumor identification.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-[#101010] py-12 px-6">
-        <h2 className="text-center text-3xl font-bold mb-2" id='contact'>Ready to Transform Diagnostics?</h2>
-        <p className="text-center text-gray-300 mb-6">
-          Join countless medical professionals leveraging AI for precise and efficient brain tumor diagnosis.
-        </p>
-        <div className="flex justify-center gap-4">
-          <div className="rounded-md cursor-pointer p-4 bg-[#f99601] shadow-lg hover:scale-105 transition-transform">
-            <Link href="/demo" className="text-[#353434] font-medium">
-              Analyze demo
-            </Link>
-          </div>
-          <div className="rounded-md cursor-pointer p-4 border border-[#494848] shadow-lg hover:scale-105 transition-transform">
-            <Link href="/contact" className="text-[#f99601] font-medium">
-              Contact Us
-            </Link>
-          </div>
-        </div>
-      </div>
-
-
+      <ContactMe />
     </>
   );
 }

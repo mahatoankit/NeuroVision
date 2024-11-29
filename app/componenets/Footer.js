@@ -39,7 +39,7 @@ function Footer() {
                         <a href="/analysis" className="hover:text-[#f99601]">Analysis</a>
                         <a href="#features" className="hover:text-[#f99601]">Features</a>
                         <a href="#about" className="hover:text-[#f99601]">About Us</a>
-                        <a href="#contact" className="hover:text-[#f99601]">Contact</a>
+                        <a href="/contact" className="hover:text-[#f99601]">Contact</a>
                     </div>
                 </div>
             </div>
