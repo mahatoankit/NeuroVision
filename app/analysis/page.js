@@ -51,7 +51,7 @@ function App() {
             });
             res = await res.json();
             if (res?.["isBrain"] === 'NB') {
-                setMessage('The image is not a Brain MRI.');
+                setMessage('The image is not a Brain MRI / Invalid ratio.');
                 setMessageType('error');
                 setResult(null);
                 return;

@@ -9,11 +9,9 @@ export default function Page() {
     "Pilocytic Astrocytoma": { "accuracy": "87%", "img": "sample/pilocytic_astrocytoma.jpeg" },
     "Medulloblastoma": { "accuracy": "93%", "img": "sample/medulloblastoma.jpg" },
     "Glioblastoma": { "accuracy": "95%", "img": "sample/glioblastoma.jpeg" },
-    "Primary CNS Lymphoma": { "accuracy": "90%", "img": "sample/primary_cns_lymphoma.jpg" },
     "Metastasis": { "accuracy": "89%", "img": "sample/metastasis.jpeg" },
     "Meningioma": { "accuracy": "92%", "img": "sample/meningioma.jpeg" },
     "Encephalitis": { "accuracy": "85%", "img": "sample/encephalitis.jpeg" },
-    "Low-Grade Glioma": { "accuracy": "88%", "img": "sample/low_grade_glioma.jpeg" }
   }
   const prediction = {
     "pilocytic_astrocytoma": {
