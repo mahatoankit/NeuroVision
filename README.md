@@ -96,6 +96,6 @@ For inquiries or collaboration opportunities, please contact us:
 ---
 
 ## Demo
-Check out our live demo on [LinkedIn Post][https://youtube.com](https://www.linkedin.com/posts/mahatoankit_machinelearning-artificialintelligence-aiinhealthcare-activity-7269332653932195840-St6m?utm_source=share&utm_medium=member_desktop).
+Check out our live demo on [LinkedIn Post][https://linkedin.com](https://www.linkedin.com/posts/mahatoankit_machinelearning-artificialintelligence-aiinhealthcare-activity-7269332653932195840-St6m?utm_source=share&utm_medium=member_desktop).
 
 ---
