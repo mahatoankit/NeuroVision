@@ -1,4 +1,6 @@
+#hi! just to be sure my code has been pushed to the branch
 import os.path
+import shutil
 
 import cv2
 import numpy
@@ -107,6 +109,12 @@ class Common:
             return jsonify({
                 "error": str(e)
             }), 500
+
+    @staticmethod
+    def check_disk_space(min_required_space=100, path="/"):
+        total, used, free = shutil.disk_usage(path)
+        if free < min_required_space * 1024 * 1024:
+            abort(500, description=f"Insufficient disk space in {path}. Please free up some space and try again.")
 
 
 class Handler:
@@ -264,6 +272,11 @@ def generate_report():
 def generate_tumor_report():
     tumor_type = _common.getJson("tumor_type")
     return _common.handleHardException(lambda: _handler.generate_tumor_report(tumor_type), val=True)
+
+
+@app.before_request
+def before_request():
+    Common.check_disk_space(path="/tmp")
 
 
 @app.after_request
