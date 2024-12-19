@@ -4,6 +4,7 @@ import cv2
 import numpy
 from flask import Flask, request, abort, jsonify, render_template
 from tensorflow.keras.models import load_model
+from transformers import pipeline
 
 
 class Base:
@@ -88,7 +89,7 @@ class Common:
             return abort(400, description="The server expected a proper attached file with request, Never Found!")
 
     @staticmethod
-    def handelHardException(_executable: callable, val=False, ignore_val=False):
+    def handleHardException(_executable: callable, val=False, ignore_val=False):
         try:
             _executable = _executable()
             _tp = type(_executable)
@@ -178,90 +179,35 @@ class Handler:
         self.isMetastasis = IsAMetastasis(self.model_path.get("isMetastasis"))
         self.isPilocyticAstrocytoma = IsAPilocyticAstrocytoma(self.model_path.get("isPilocyticAstrocytoma"))
 
-    def check_is_brain(self, img):
+    def check_tumor(self, img, tumor_type):
         img = img.read()
-        return {"isBrain": "YB" if self.isBrain.check_this(img) > .5 else "NB"}
-    
-    def check_is_Encephalitis(self, img):
-        img = img.read()
-        return {"isEncephalitis": "YE" if self.isEncephalitis.check_this(img) > .5 else "NE"}
-    
-    def check_is_Glioblastoma(self, img):
-        img = img.read()
-        return {"isGlioblastoma": "YGB" if self.isGlioblastoma.check_this(img) > .5 else "NGB"}
-    
-    def check_is_Glioma(self, img):
-        img = img.read()
-        return {"isGlioma": "YGL" if self.isGlioma.check_this(img) > .5 else "NGL"}
-   
-    def check_is_Medulloblastoma(self, img):
-        img = img.read()
-        return {"isMedulloblastoma": "YMD" if self.isMedulloblastoma .check_this(img) > .5 else "NMD"}
-    
-    def check_is_Meningioma(self, img):
-        img = img.read()
-        return {"isMeningioma": "YMN" if self.isMeningioma .check_this(img) > .5 else "NMN"}
-   
-    def check_is_Metastasis(self, img):
-        img = img.read()
-        return {"isMetastasis": "YMT" if self.isMetastasis.check_this(img) > .5 else "NMT"}
-       
-    def check_is_Pilocytic_Astrocytoma(self, img):
-        img = img.read()
-        return {"isPilocyticAstrocytoma": "YP" if self.isPilocyticAstrocytoma.check_this(img) > .5 else "NP"}
+        check_method = getattr(self, f'is{tumor_type}').check_this
+        return {tumor_type: f"Y{tumor_type[:2].upper()}" if check_method(img) > .5 else f"N{tumor_type[:2].upper()}"}
 
-    def check_type_of_tumor(self, img, args:dict):
+    def check_type_of_tumor(self, img, args: dict):
         img = img.read()
         matrix = {}
         _hig = (0, "")
-        
 
-        if args.get("encephalitis"):
-            _rq = self.isEncephalitis.check_this(img)
-            if _rq > _hig[0]:
-                _hig = (_rq, "encephalitis")
-            matrix["encephalitis"] = str(_rq)
-        
-        if args.get("glioblastoma"):
-            _rq = self.isGlioblastoma.check_this(img)
-            if _rq > _hig[0]:
-                _hig = (_rq, "glioblastoma")
-            matrix["glioblastoma"] = str(_rq)
-        
-        if args.get("glioma"):
-            _rq = self.isGlioma.check_this(img)
-            if _rq > _hig[0]:
-                _hig = (_rq, "glioma")
-            matrix["glioma"] = str(_rq)
-        
-        if args.get("medulloblastoma"):
-            _rq = self.isMedulloblastoma.check_this(img)
-            if _rq > _hig[0]:
-                _hig = (_rq, "medulloblastoma")
-            matrix["medulloblastoma"] = str(_rq)
-        
-        if args.get("meningioma"):
-            _rq = self.isMeningioma.check_this(img)
-            if _rq > _hig[0]:
-                _hig = (_rq, "meningioma")
-            matrix["meningioma"] = str(_rq)
-        
-        if args.get("metastasis"):
-            _rq = self.isMetastasis.check_this(img)
-            if _rq > _hig[0]:
-                _hig = (_rq, "metastasis")
-            matrix["metastasis"] = str(_rq)
-        
-        if args.get("pilocytic_astrocytoma"):
-            _rq = self.isPilocyticAstrocytoma.check_this(img)
-            if _rq > _hig[0]:
-                _hig = (_rq, "pilocytic_astrocytoma")
-            matrix["pilocytic_astrocytoma"] = str(_rq)
+        for tumor_type in ["Brain", "Encephalitis", "Glioblastoma", "Glioma", "Medulloblastoma", "Meningioma", "Metastasis", "PilocyticAstrocytoma"]:
+            if args.get(tumor_type.lower()):
+                _rq = getattr(self, f'is{tumor_type}').check_this(img)
+                if _rq > _hig[0]:
+                    _hig = (_rq, tumor_type.lower())
+                matrix[tumor_type.lower()] = str(_rq)
 
         _type = (_hig[0] > .4 and _hig[1]) or "N/A"
 
         return {"matrix": matrix, "type": _type, "meta_data": self.tumor_meta_data.get(_type, {}), "confidence": str(_hig[0] * 100)[:5] + "%"}
 
+    def generate_tumor_report(self, tumor_type):
+        meta_data = self.tumor_meta_data.get(tumor_type)
+        if not meta_data:
+            abort(400, description="Invalid tumor type provided.")
+        
+        prompt = f"Generate a detailed report for {tumor_type} including symptoms, cancerous status, age group, origin, treatment, and prognosis."
+        response = llm_pipeline(prompt, max_length=500)
+        return response[0]['generated_text']
 
 _handler = Handler({
     "isBrain": "/home/rohan/Projects/ML/MRI/model/test_is_it_mri.keras",
@@ -276,6 +222,8 @@ _handler = Handler({
 
 _common = Common()
 
+# Initialize the LLM pipeline
+llm_pipeline = pipeline("text-generation", model="gpt-3.5-turbo")
 
 # App init
 app = Flask(__name__)
@@ -289,7 +237,7 @@ def _400(e):
 # is brain slug
 @app.route("/v1/neurovision/detect_brain", methods=["POST"])
 def isBrain():
-    return _common.handelHardException(lambda: _handler.check_is_brain(_common.getFile("file")), val=True)
+    return _common.handleHardException(lambda: _handler.check_tumor(_common.getFile("file"), "Brain"), val=True)
 
 
 @app.route("/v1/neurovision/check_mri", methods=["POST"])
@@ -303,6 +251,19 @@ def checkThisMRI():
         "metastasis": request.args.get("metastasis", "1") == "1",
         "pilocytic_astrocytoma": request.args.get("pilocytic_astrocytoma", "1") == "1",
     }), val=True)
+
+
+@app.route("/v1/neurovision/generate_report", methods=["POST"])
+def generate_report():
+    text_input = _common.getJson("text_input")
+    response = llm_pipeline(text_input, max_length=500)
+    return jsonify(response), 200
+
+
+@app.route("/v1/neurovision/generate_tumor_report", methods=["POST"])
+def generate_tumor_report():
+    tumor_type = _common.getJson("tumor_type")
+    return _common.handleHardException(lambda: _handler.generate_tumor_report(tumor_type), val=True)
 
 
 @app.after_request
